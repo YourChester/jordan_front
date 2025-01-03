@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200');
+@import url('./colors.css');
+
+:root {
+	--primary: var(--black);
+
+	/* app */
+	--v-app-background-color: var(--grey-lighten-5);
+
+	/* input */
+	--v-input-height: 56px;
+	--v-input-padding-top: 16px;
+	--v-input-padding-end: 6px;
+	--v-input-padding-start: 16px;
+	--v-input-padding-bottom: 16px;
+	--v-input-background-color: var(--transparent);
+	--v-input-font-size: 1rem;
+	--v-input-border-width: 1px;
+	--v-input-border-color: var(--primary);
+	--v-input-border-opacity: 0.38;
+	--v-input-icon-color: var(--grey-darken-1);
+
+	/* menu */
+	--v-menu-background: var(--white);
+	--v-menu-border-radius: 4px;
+	--v-menu-shadow: 4px 4px 12px -4px var(--grey-darken-4);
+}
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: inherit;
+}
+
+html {
+	box-sizing: border-box;
+	font-family: 'Roboto', serif;
+	font-size: 16px;
+}
+
+input {
+	border: none;
+	outline: none;
+}

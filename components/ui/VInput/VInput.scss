@@ -1,0 +1,32 @@
+.v-input {
+	display: grid;
+	grid-template-areas:
+		'prepend control append'
+		'a details b';
+	grid-template-columns: max-content minmax(0, 1fr) max-content;
+	grid-template-rows: auto auto;
+
+	&__prepend {
+		grid-area: prepend;
+		display: flex;
+		margin-right: 16px;
+	}
+
+	&__control {
+		grid-area: control;
+		display: flex;
+	}
+
+	&__append {
+		grid-area: append;
+		display: flex;
+		margin-left: 16px;
+	}
+
+	&__details {
+		grid-area: details;
+		display: flex;
+		min-height: 22px;
+		padding: 6px 16px 0 16px;
+	}
+}

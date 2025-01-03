@@ -1,0 +1,13 @@
+.v-menu {
+	&__overlay {
+		pointer-events: all;
+		position: absolute;
+		z-index: 2000;
+		display: flex;
+		flex-direction: column;
+		padding: 8px 0;
+		border-radius: var(--v-menu-border-radius);
+		background-color: var(--v-menu-background);
+		box-shadow: var(--v-menu-shadow);
+	}
+}

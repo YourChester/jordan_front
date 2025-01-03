@@ -1,0 +1,23 @@
+.v-app {
+	display: flex;
+	background-color: var(--v-app-background-color);
+
+	&__wrap {
+		display: flex;
+		flex-direction: column;
+		flex: 1 1 auto;
+		max-width: 100%;
+		min-height: 100vh;
+		min-height: 100dvh;
+		position: relative;
+	}
+
+	.v-overlay-container {
+		position: absolute;
+		top: 0;
+		left: 0;
+		min-width: 100vw;
+		min-height: 100vh;
+		pointer-events: none;
+	}
+}
