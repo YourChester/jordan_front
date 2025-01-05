@@ -50,6 +50,7 @@
 
 	&__input {
 		height: var(--v-input-height);
+		position: relative;
 		width: 100%;
 		display: flex;
 		padding-top: var(--v-input-padding-top);

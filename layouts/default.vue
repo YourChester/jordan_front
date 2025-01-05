@@ -1,11 +1,9 @@
-<script setup>
-import VApp from '@/components/ui/VApp';
-</script>
+<script setup></script>
 
 <template>
 	<div>
-		<VApp>
+		<UiVApp>
 			<slot></slot>
-		</VApp>
+		</UiVApp>
 	</div>
 </template>

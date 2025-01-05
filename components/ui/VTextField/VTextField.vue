@@ -1,6 +1,4 @@
 <script setup>
-import VInput from '@/components/ui/VInput';
-import VField from '@/components/ui/VField';
 import { useInputProps, useFieldProps, useFieldEmits } from '@/composables';
 
 const props = defineProps({
@@ -29,12 +27,12 @@ const onClickAppendInner = (event) => {
 </script>
 
 <template>
-	<VInput
+	<UiVInput
 		:prepend="props.prepend"
 		:append="props.append"
 		:showDetails="props.showDetails"
 	>
-		<VField
+		<UiVField
 			:cleareble="props.cleareble"
 			:label="props.label"
 			:prepend-inner="props.prependInner"
@@ -54,6 +52,6 @@ const onClickAppendInner = (event) => {
 					@blur="slotProps.onBlur"
 				/>
 			</template>
-		</VField>
-	</VInput>
+		</UiVField>
+	</UiVInput>
 </template>

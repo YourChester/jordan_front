@@ -1,0 +1,17 @@
+.v-select {
+  &__selection {
+    display: inline-flex;
+    align-items: center;
+    line-height: inherit;
+    max-width: 100%;
+  }
+
+  input {
+    position: absolute;
+    flex: 0 0;
+    width: 100%;
+    font: inherit;
+    color: var(--transparent);
+    background-color: var(--transparent);
+  }
+}

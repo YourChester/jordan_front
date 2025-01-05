@@ -25,6 +25,10 @@
 	--v-menu-background: var(--white);
 	--v-menu-border-radius: 4px;
 	--v-menu-shadow: 4px 4px 12px -4px var(--grey-darken-4);
+	--v-menu-max-height: 248px;
+
+	/* list */
+	--v-list-height: 40px;
 }
 
 * {
@@ -37,6 +41,7 @@ html {
 	box-sizing: border-box;
 	font-family: 'Roboto', serif;
 	font-size: 16px;
+	line-height: 1.5;
 }
 
 input {

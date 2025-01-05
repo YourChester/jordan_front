@@ -1,7 +1,5 @@
 <script setup>
 import './VField.scss';
-import VIcon from '@/components/ui/VIcon';
-import VLabel from '@/components/ui/VLabel';
 import { getUid } from '@/utils';
 import { useFieldProps, useFieldEmits, useField } from '@/composables';
 
@@ -42,15 +40,15 @@ onMounted(() => {
 	>
 		<div class="v-field__overlay"></div>
 		<div v-if="props.prependInner" class="v-field__prepend-inner">
-			<VIcon
+			<UiVIcon
 				:name="props.prependInner"
 				@click="onClickPrependInner"
-			></VIcon>
+			></UiVIcon>
 		</div>
 		<div class="v-field__field">
-			<VLabel :id="`input-${uid}`" class="v-field__label">
+			<UiVLabel :id="`input-${uid}`" class="v-field__label">
 				{{ props.label }}
-			</VLabel>
+			</UiVLabel>
 			<slot
 				name="default"
 				:class="['v-field__input']"
@@ -60,23 +58,23 @@ onMounted(() => {
 			></slot>
 		</div>
 		<div v-if="cleareble && dirty" class="v-field__clear">
-			<VIcon name="close" @click="onClear"></VIcon>
+			<UiVIcon name="close" @click="onClear"></UiVIcon>
 		</div>
 		<div v-if="props.appendInner" class="v-field__append-inner">
-			<VIcon
+			<UiVIcon
 				:name="props.appendInner"
 				@click="onClickAppendInner"
-			></VIcon>
+			></UiVIcon>
 		</div>
 		<div class="v-field__outline">
 			<div class="v-field__outline__start"></div>
 			<div class="v-field__outline__notch">
-				<VLabel
+				<UiVLabel
 					:id="`input-${uid}`"
 					class="v-field__label v-field__label--floating"
 				>
 					{{ props.label }}
-				</VLabel>
+				</UiVLabel>
 			</div>
 			<div class="v-field__outline__end"></div>
 		</div>

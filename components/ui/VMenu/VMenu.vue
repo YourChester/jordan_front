@@ -1,13 +1,14 @@
 <script setup>
 import './VMenu.scss';
 import { ref } from 'vue';
+import { getUid } from '@/utils';
 
-const DEFAULT_MIN_WIDTH = '120px';
+const DEFAULT_MIN_WIDTH = 120;
 
 const props = defineProps({
 	activator: {
 		type: String,
-		required: true,
+		default: undefined,
 	},
 	location: {
 		type: String,
@@ -15,9 +16,15 @@ const props = defineProps({
 	},
 });
 
+const uid = ref(0);
 const activator = ref(null);
 const menuIsOpen = ref(false);
 const menuStyle = ref({});
+const menuRef = useTemplateRef('menu');
+
+const curentActivatorKey = computed(() => {
+	return props.activator || `[data-menu-activator=menu-${uid.value}]`;
+});
 
 const onClickActivator = (event) => {
 	event.preventDefault();
@@ -36,13 +43,18 @@ const onCloseMenu = (event) => {
 
 const calcPosition = () => {
 	const clientRect = activator.value.getBoundingClientRect();
-	menuStyle.minWidth =
-		clientRect.width > DEFAULT_MIN_WIDTH ? clientRect.width : '';
+
+	menuStyle.value.minWidth =
+		clientRect.width > DEFAULT_MIN_WIDTH ? `${clientRect.width}px` : '';
+
 	switch (props.location) {
 		case 'bottom':
 			menuStyle.value = {
-				top: `${clientRect.top + clientRect.height}px`,
-				left: `${clientRect.left}px`,
+				...menuStyle.value,
+				...{
+					top: `${clientRect.top + clientRect.height}px`,
+					left: `${clientRect.left}px`,
+				},
 			};
 			break;
 		default:
@@ -50,8 +62,20 @@ const calcPosition = () => {
 	}
 };
 
+const onClickOutSide = (event) => {
+	if (!menuIsOpen || !menuRef.value) {
+		return;
+	}
+	if (
+		!menuRef.value.contains(event.target) &&
+		!activator.value.contains(event.target)
+	) {
+		onCloseMenu(event);
+	}
+};
+
 const setActivatorEvent = () => {
-	activator.value = document.querySelector(props.activator);
+	activator.value = document.querySelector(curentActivatorKey.value);
 
 	if (!activator.value) {
 		console.error('Activator not find');
@@ -75,26 +99,48 @@ const destroyActivatorEvent = () => {
 	activator.value.removeEventListener('click', onClickActivator);
 };
 
+const setClickOutside = () => {
+	window.addEventListener('click', onClickOutSide);
+};
+
+const destroyClickOutside = () => {
+	window.removeEventListener('click', onClickOutSide);
+};
+
 onMounted(() => {
 	setActivatorEvent();
+	setClickOutside();
+	uid.value = getUid();
 });
 
 onBeforeUnmount(() => {
 	destroyActivatorEvent();
+	destroyClickOutside();
 });
 </script>
 
 <template>
+	<slot
+		name="activator"
+		:data--menu--activator="`menu-${uid}`"
+		:menuIsOpen="menuIsOpen"
+	>
+	</slot>
 	<div class="v-menu">
-		<Teleport to=".v-overlay-container">
-			<div
-				v-if="menuIsOpen"
-				class="v-menu__overlay"
-				:style="menuStyle"
-				@click="onCloseMenu"
-			>
-				<slot></slot>
-			</div>
-		</Teleport>
+		<ClientOnly>
+			<Teleport to=".v-overlay-container">
+				<div class="v-menu__overlay">
+					<div
+						v-if="menuIsOpen"
+						ref="menu"
+						class="v-menu__content"
+						:style="menuStyle"
+						@click="onCloseMenu"
+					>
+						<slot></slot>
+					</div>
+				</div>
+			</Teleport>
+		</ClientOnly>
 	</div>
 </template>

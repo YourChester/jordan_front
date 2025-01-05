@@ -1,13 +1,24 @@
 .v-menu {
 	&__overlay {
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		display: block;
+		z-index: 2000;
+	}
+
+	&__content {
 		pointer-events: all;
 		position: absolute;
-		z-index: 2000;
 		display: flex;
 		flex-direction: column;
 		padding: 8px 0;
+		max-height: var(--v-menu-max-height);
 		border-radius: var(--v-menu-border-radius);
 		background-color: var(--v-menu-background);
 		box-shadow: var(--v-menu-shadow);
+		overflow-y: auto;
 	}
 }

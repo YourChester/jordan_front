@@ -1,27 +1,26 @@
 <script setup>
-import VSelect from '@/components/ui/VSelect';
-import VTextField from '@/components/ui/VTextField';
-import VMenu from '~/components/ui/VMenu';
-
 const sometext = ref('');
 const selected = ref('');
 const viewPass = ref(false);
+const options = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 </script>
 
 <template>
 	<div style="padding: 20px">
-		<VTextField
+		<UiVTextField
 			v-model="sometext"
 			:type="viewPass ? 'text' : 'password'"
 			label="Password"
 			:append-inner="viewPass ? 'visibility' : 'visibility_off'"
 			cleareble
 			@on-click:append-inner="() => (viewPass = !viewPass)"
-		></VTextField>
-		{{ sometext }}
-		<VSelect v-model="selected" label="Select" cleareble> </VSelect>
-
-		<button id="activator">click</button>
-		<VMenu activator="#activator"></VMenu>
+		></UiVTextField>
+		<UiVSelect
+			v-model="selected"
+			:options="options"
+			label="Select"
+			cleareble
+		>
+		</UiVSelect>
 	</div>
 </template>
