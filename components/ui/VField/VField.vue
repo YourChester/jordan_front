@@ -4,25 +4,14 @@ import { getUid } from '@/utils';
 import { useFieldProps, useFieldEmits, useField } from '@/composables';
 
 const props = defineProps({
-	dirty: {
-		type: Boolean,
-		default: false,
-	},
 	...useFieldProps(),
 });
-
 const emits = defineEmits(useFieldEmits());
 
 const uid = ref(0);
 
-const {
-	focus,
-	onFocus,
-	onBlur,
-	onClear,
-	onClickPrependInner,
-	onClickAppendInner,
-} = useField(emits);
+const { onClick, onClear, onClickPrependInner, onClickAppendInner } =
+	useField(emits);
 
 onMounted(() => {
 	uid.value = props.id || getUid();
@@ -33,10 +22,11 @@ onMounted(() => {
 	<div
 		class="v-field"
 		:class="{
-			'v-field--focus': focus,
-			'v-field--active': focus || dirty,
-			'v-field--dirty': dirty,
+			'v-field--focus': props.focus,
+			'v-field--active': props.active || props.dirty,
+			'v-field--dirty': props.dirty,
 		}"
+		@click="onClick"
 	>
 		<div class="v-field__overlay"></div>
 		<div v-if="props.prependInner" class="v-field__prepend-inner">
@@ -53,11 +43,9 @@ onMounted(() => {
 				name="default"
 				:class="['v-field__input']"
 				:id="`input-${uid}`"
-				:onFocus="onFocus"
-				:onBlur="onBlur"
 			></slot>
 		</div>
-		<div v-if="cleareble && dirty" class="v-field__clear">
+		<div v-if="cleareble && props.dirty" class="v-field__clear">
 			<UiVIcon name="close" @click="onClear"></UiVIcon>
 		</div>
 		<div v-if="props.appendInner" class="v-field__append-inner">

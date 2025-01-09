@@ -22,13 +22,13 @@
 	--v-input-icon-color: var(--grey-darken-1);
 
 	/* menu */
-	--v-menu-background: var(--white);
+	--v-menu-background: var(--v-app-background-color);
 	--v-menu-border-radius: 4px;
 	--v-menu-shadow: 4px 4px 12px -4px var(--grey-darken-4);
-	--v-menu-max-height: 248px;
+	--v-menu-max-height: 296px;
 
 	/* list */
-	--v-list-height: 40px;
+	--v-list-height: 48px;
 }
 
 * {

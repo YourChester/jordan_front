@@ -15,10 +15,11 @@ const props = defineProps({
 		default: 'bottom',
 	},
 });
+const model = defineModel({ default: false });
+const instance = getCurrentInstance();
 
 const uid = ref(0);
 const activator = ref(null);
-const menuIsOpen = ref(false);
 const menuStyle = ref({});
 const menuRef = useTemplateRef('menu');
 
@@ -28,17 +29,17 @@ const curentActivatorKey = computed(() => {
 
 const onClickActivator = (event) => {
 	event.preventDefault();
-	if (!menuIsOpen.value) {
+	if (!model.value) {
 		calcPosition();
 	} else {
 		menuStyle.value = {};
 	}
-	menuIsOpen.value = !menuIsOpen.value;
+	model.value = !model.value;
 };
 
 const onCloseMenu = (event) => {
 	event.preventDefault();
-	menuIsOpen.value = false;
+	model.value = false;
 };
 
 const calcPosition = () => {
@@ -63,7 +64,7 @@ const calcPosition = () => {
 };
 
 const onClickOutSide = (event) => {
-	if (!menuIsOpen || !menuRef.value) {
+	if (!model.value || !menuRef.value) {
 		return;
 	}
 	if (
@@ -75,7 +76,11 @@ const onClickOutSide = (event) => {
 };
 
 const setActivatorEvent = () => {
-	activator.value = document.querySelector(curentActivatorKey.value);
+	if (curentActivatorKey.value == 'parent') {
+		activator.value = instance.parent.vnode.el;
+	} else {
+		activator.value = document.querySelector(curentActivatorKey.value);
+	}
 
 	if (!activator.value) {
 		console.error('Activator not find');
@@ -120,18 +125,13 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-	<slot
-		name="activator"
-		:data--menu--activator="`menu-${uid}`"
-		:menuIsOpen="menuIsOpen"
-	>
-	</slot>
+	<slot name="activator" :data--menu--activator="`menu-${uid}`"> </slot>
 	<div class="v-menu">
 		<ClientOnly>
 			<Teleport to=".v-overlay-container">
 				<div class="v-menu__overlay">
 					<div
-						v-if="menuIsOpen"
+						v-if="model"
 						ref="menu"
 						class="v-menu__content"
 						:style="menuStyle"

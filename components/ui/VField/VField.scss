@@ -20,6 +20,10 @@
 	&__prepend-inner {
 		grid-area: prepend-inner;
 		display: flex;
+		align-items: center;
+		cursor: pointer;
+		color: var(--v-input-icon-color);
+		margin: 0 4px;
 	}
 
 	&__field {

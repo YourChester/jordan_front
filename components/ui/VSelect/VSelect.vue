@@ -23,6 +23,7 @@ const model = defineModel();
 const emits = defineEmits([...useFieldEmits()]);
 
 const selected = ref(undefined);
+const menu = ref(false);
 
 const selectedOptions = computed(() => {
 	return selected.value;
@@ -32,18 +33,24 @@ const isObjOptions = computed(() => {
 	return typeof props.options[0] == 'object';
 });
 
+const onBlur = (_event) => {
+	// menu.value = false;
+};
+
+const onKeydown = (event) => {
+	if (event.key == 'Tab') {
+		return;
+	}
+	event.preventDefault();
+};
+
 const onClear = (event) => {
 	model.value = undefined;
 	selected.value = undefined;
 	emits('on-clear', event);
 };
 
-const onClickPrependInner = (event) => {
-	emits('on-click:prepend-inner', event);
-};
-
 const onSelectOptions = (option) => {
-	console.log(option);
 	if (typeof option == 'object') {
 		model.value = option[props.value];
 		selected.value = option[props.value];
@@ -55,43 +62,21 @@ const onSelectOptions = (option) => {
 </script>
 
 <template>
-	<UiVInput
-		:prepend="props.prepend"
-		:append="props.append"
-		:showDetails="props.showDetails"
+	<UiVTextField
 		class="v-select"
+		inputmode="none"
+		:label="props.label"
+		:dirty="selectedOptions"
+		:append-inner="menu ? 'arrow_drop_up' : 'arrow_drop_down'"
+		:cleareble="props.cleareble"
+		@on-clear="onClear"
+		@on-blur="onBlur"
+		@keydown="onKeydown"
 	>
-		<UiVMenu>
-			<template #activator="menuSlotProps">
-				<UiVField
-					v-bind="menuSlotProps"
-					:cleareble="props.cleareble"
-					:label="props.label"
-					:prepend-inner="props.prependInner"
-					:append-inner="
-						menuSlotProps.menuIsOpen
-							? 'arrow_drop_up'
-							: 'arrow_drop_down'
-					"
-					:dirty="!!model"
-					@on-clear="onClear"
-					@on-click:prepend-inner="onClickPrependInner"
-				>
-					<template #default="slotProps">
-						<div :class="slotProps.class">
-							<div class="v-selct__selection">
-								{{ selectedOptions }}
-							</div>
-							<input
-								:id="slotProps.id"
-								@focus="slotProps.onFocus"
-								@blur="slotProps.onBlur"
-								inputmode="none"
-							/>
-						</div>
-					</template>
-				</UiVField>
-			</template>
+		<div class="v-select__selection">
+			{{ selectedOptions }}
+		</div>
+		<UiVMenu activator="parent" v-model="menu">
 			<UiVList>
 				<UiVListItem
 					v-for="option in options"
@@ -103,5 +88,5 @@ const onSelectOptions = (option) => {
 				</UiVListItem>
 			</UiVList>
 		</UiVMenu>
-	</UiVInput>
+	</UiVTextField>
 </template>

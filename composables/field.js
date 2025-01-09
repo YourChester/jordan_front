@@ -1,5 +1,3 @@
-import { ref } from 'vue';
-
 const useFieldProps = () => {
 	return {
 		id: {
@@ -18,6 +16,18 @@ const useFieldProps = () => {
 			type: String,
 			default: '',
 		},
+		dirty: {
+			type: Boolean,
+			default: false,
+		},
+		active: {
+			type: Boolean,
+			default: false,
+		},
+		focus: {
+			type: Boolean,
+			default: false,
+		},
 		cleareble: {
 			type: Boolean,
 			default: false,
@@ -27,27 +37,17 @@ const useFieldProps = () => {
 
 const useFieldEmits = () => {
 	return [
+		'on-click',
 		'on-clear',
-		'on-focus',
-		'on-blur',
 		'on-click:prepend-inner',
 		'on-click:append-inner',
 	];
 };
 
 const useField = (emits) => {
-	const focus = ref(false);
-
-	const onBlur = (event) => {
+	const onClick = (event) => {
 		event.preventDefault();
-		focus.value = false;
-		emits('on-blur', event);
-	};
-
-	const onFocus = (event) => {
-		event.preventDefault();
-		focus.value = true;
-		emits('on-focus', event);
+		emits('on-click', event);
 	};
 
 	const onClear = (event) => {
@@ -68,9 +68,7 @@ const useField = (emits) => {
 	};
 
 	return {
-		focus,
-		onFocus,
-		onBlur,
+		onClick,
 		onClear,
 		onClickPrependInner,
 		onClickAppendInner,
