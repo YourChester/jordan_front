@@ -3,7 +3,7 @@
 @import url('./colors.css');
 
 :root {
-	--primary: var(--black);
+	--primary: var(--grey-darken-4);
 
 	/* app */
 	--v-app-background-color: var(--grey-lighten-5);
@@ -29,6 +29,15 @@
 
 	/* list */
 	--v-list-height: 48px;
+
+	/* btn */
+	--v-btn-height: 36px;
+	--v-btn-padding: 0 16px;
+	--v-btn-icon-padding: 0 12px;
+	--v-btn-border: 4px;
+	--v-btn-shadow: 0px 3px 4px -2px var(--grey-darken-4);
+	--v-btn-shadow-hover: 0px 3px 8px -2px var(--grey-darken-4);
+	
 }
 
 * {

@@ -1,0 +1,72 @@
+.v-btn {
+  display: inline-grid;
+  position: relative;
+  grid-template-areas: 'prepend content append';
+	grid-template-columns: min-content minmax(0, 1fr) min-content;
+  border: none;
+  background-color: none;
+  padding: var(--v-btn-padding);
+  height: var(--v-btn-height);
+  border-radius: var(--v-btn-border);
+  box-shadow: var(--v-btn-shadow);
+  cursor: pointer;
+  transition: box-shadow 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+
+
+  &__overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    pointer-events: none;
+    background-color: currentColor;
+    opacity: 0;
+    transition: opacity 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    border-radius: inherit;
+  }
+
+  &__prepend {
+    grid-area: prepend;
+    display: flex;
+    align-items: center;
+    margin-right: 12px;
+    height: 100%;
+  }
+
+  &__content {
+    grid-area: content;
+    display: flex;
+    align-items: center;
+    height: 100%;
+    justify-content: center;
+  }
+
+  &__append {
+    grid-area: append;
+    display: flex;
+    align-items: center;
+    margin-left: 12px;
+    height: 100%;
+  }
+
+  &--icon {
+    width: calc(var(--v-btn-height) + 12px);
+    height: calc(var(--v-btn-height) + 12px);
+    border-radius: 50%;
+    padding: 0;
+  }
+
+  &--primary {
+    background-color: var(--primary);
+    color: var(--white);
+  }
+
+  &:hover {
+    box-shadow: var(--v-btn-shadow-hover);
+      
+    .v-btn__overlay {
+      opacity: 0.05;
+    }
+  }
+}

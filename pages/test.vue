@@ -22,5 +22,7 @@ const options = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 			cleareble
 		>
 		</UiVSelect>
+		<UiVBtn prepend-icon="visibility_off"> test </UiVBtn>
+		<UiVBtn icon name="visibility_off"></UiVBtn>
 	</div>
 </template>
